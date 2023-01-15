@@ -10,8 +10,12 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController rePasswordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +46,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: accentHexColor,
                       ),
                       child: TextField(
-                        controller: userNameController,
+                        controller: firstNameController,
 
                         style: TextStyle(
                           fontSize: 14,
@@ -80,7 +84,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: accentHexColor,
                       ),
                       child: TextField(
-                        controller: userNameController,
+                        controller: lastNameController,
 
                         style: TextStyle(
                           fontSize: 14,
@@ -118,7 +122,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: accentHexColor,
                       ),
                       child: TextField(
-                        controller: userNameController,
+                        controller: emailController,
 
                         style: TextStyle(
                           fontSize: 14,
@@ -233,7 +237,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         color: accentHexColor,
                       ),
                       child: TextField(
-                        controller: passwordController,
+                        controller: rePasswordController,
                         obscureText: true,
                         style: TextStyle(
                           fontSize: 14,
