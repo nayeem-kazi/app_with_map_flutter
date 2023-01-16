@@ -1,4 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../const/app_constant.dart';
+import '../screens/map_screen.dart';
+import '../screens/signup_screen.dart';
 
 class LoginWidget extends StatefulWidget {
   const LoginWidget({Key? key}) : super(key: key);
@@ -8,8 +13,15 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController userNameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  @override
+  void dispose(){
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,7 +50,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       color: accentHexColor,
                     ),
                     child: TextField(
-                      controller: userNameController,
+                      controller: emailController,
 
                       style: TextStyle(
                         fontSize: 30,
@@ -46,7 +58,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         color: textHexColor,
                       ),
 
-
+                      textInputAction: TextInputAction.next,
                       decoration: InputDecoration(
 
                         hintText: "User Name",
@@ -84,6 +96,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                         fontWeight: FontWeight.w400,
                         color: textHexColor,
                       ),
+                      textInputAction: TextInputAction.next,
 
 
                       decoration: InputDecoration(
@@ -126,7 +139,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
 
                         onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MapScreen(),));
+                          print("First Access");
+                          signInWithEmailAndPassword();
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -190,4 +204,26 @@ class _LoginWidgetState extends State<LoginWidget> {
       ),
     );
   }
+
+  Future signInWithEmailAndPassword() async {
+    print("button work");
+    String emailAddress = emailController.text.toString();
+    String password = passwordController.text.toString();
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: emailAddress,
+          password: password
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        print('No user found for that email.');
+      } else if (e.code == 'wrong-password') {
+        print('Wrong password provided for that user.');
+      }
+    }
+    // await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
+
+  }
+
+
 }

@@ -1,4 +1,5 @@
 import 'package:app_with_map/widget/menu_bar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -21,11 +22,12 @@ class _MapScreenState extends State<MapScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       backgroundColor: mainHexColor,
       appBar: AppBar(
         title: Text(
-            "This is Home Page"
+            user.email!,
         ),
       ),
       drawer: NavDrware(),

@@ -1,3 +1,4 @@
+import 'package:app_with_map/screens/map_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -12,7 +13,11 @@ class LoginScreen extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          return LoginWidget();
+          if (snapshot.hasData){
+            return MapScreen();
+          } else {
+            return LoginWidget();
+          }
         }
       ),
     );
