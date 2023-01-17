@@ -11,9 +11,11 @@ class NavDrware extends StatefulWidget {
 }
 
 class _NavDrwareState extends State<NavDrware> {
+
   @override
   Widget build(BuildContext context) {
-  var auth = Get.put(Auth());
+    final user = FirebaseAuth.instance.currentUser!;
+    var auth = Get.put(Auth());
     return Drawer(
         // Add a ListView to the drawer. This ensures the user can scroll
         // through the options in the drawer if there isn't enough vertical
@@ -26,7 +28,9 @@ class _NavDrwareState extends State<NavDrware> {
               decoration: BoxDecoration(
                 color: Colors.blue,
               ),
-              child: Text('Drawer Header'),
+              child: Text(
+                ""
+              ),
             ),
             ListTile(
               title: const Text('Item 1'),

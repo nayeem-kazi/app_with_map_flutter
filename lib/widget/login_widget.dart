@@ -139,7 +139,6 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
 
                         onPressed: (){
-                          print("First Access");
                           signInWithEmailAndPassword();
                         },
                         child: Padding(
@@ -205,8 +204,9 @@ class _LoginWidgetState extends State<LoginWidget> {
     );
   }
 
+  // Signin Method
+
   Future signInWithEmailAndPassword() async {
-    print("button work");
     String emailAddress = emailController.text.toString();
     String password = passwordController.text.toString();
     try {
@@ -221,8 +221,6 @@ class _LoginWidgetState extends State<LoginWidget> {
         print('Wrong password provided for that user.');
       }
     }
-    // await FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: password);
-
   }
 
 

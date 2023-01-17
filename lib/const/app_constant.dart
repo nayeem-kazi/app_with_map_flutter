@@ -5,3 +5,4 @@ final Color accentHexColor = HexColor("#746d6d");
 final Color textHexColor = HexColor("#FFFFFF");
 final Color editTextHexColor = HexColor("#FFFFFF");
 
+const String google_api_key = "AIzaSyD0sGbAxzsDuwKiNS_WPH9JvsCDl1VpXVo";

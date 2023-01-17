@@ -1,3 +1,5 @@
+import 'package:app_with_map/widget/login_widget.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../const/app_constant.dart';
@@ -11,6 +13,7 @@ class SignupWidget extends StatefulWidget {
 }
 
 class _SignupWidgetState extends State<SignupWidget> {
+  String firstName="", lastName="",userName="", emailAddress="", password="", repassword="";
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -282,7 +285,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                       ),
 
                       onPressed: (){
-                        Navigator.push(context, MaterialPageRoute(builder: (context) => LoginScreen(),));
+                        print("Signin Button Worked");
+                        signInWithEmailAndPassword();
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -345,4 +349,31 @@ class _SignupWidgetState extends State<SignupWidget> {
       ),
     );
   }
+
+  Future signInWithEmailAndPassword() async {
+    firstName = firstNameController.text.toString();
+    lastName = lastNameController.text.toString();
+    userName = userNameController.text.toString();
+    emailAddress = emailController.text.toString();
+    password = passwordController.text.toString();
+    repassword = rePasswordController.text.toString();
+    print(emailAddress);
+    print(password);
+    try {
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailAddress,
+        password: password,
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 }
+
+
